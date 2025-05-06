@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add product</title>
+</head>
+<body>
+<a data-th-href="@{/catalog/products/list}">Product list</a>
+<h1>Add product</h1>
+
+<form data-th-action="@{/catalog/products/store}" method="POST">
+    <b>Name: </b>
+    <input type="text" name="name">
+    <br>
+    <br>
+    <b>Details: </b>
+    <textarea name="details" id="" cols="30" rows="3"></textarea>
+    <br>
+    <br>
+    <button type="submit">Add</button>
+</form>
+</body>
+</html>
