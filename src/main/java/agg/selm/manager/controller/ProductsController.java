@@ -1,6 +1,7 @@
 package agg.selm.manager.controller;
 
 import agg.selm.manager.payload.NewProductPayload;
+import agg.selm.manager.payload.UpdateProductPayload;
 import agg.selm.manager.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -38,5 +39,17 @@ public class ProductsController {
     public String getProduct(@PathVariable("productId") int productId, Model model) {
         model.addAttribute("product", this.productService.findProduct(productId).orElseThrow());
         return "/catalog/products/product";
+    }
+
+    @GetMapping("{productId:\\d+}/edit")
+    public String productEdit(@PathVariable("productId") int productId, Model model) {
+        model.addAttribute("product", this.productService.findProduct(productId).orElseThrow());
+        return "/catalog/products/edit";
+    }
+
+    @PostMapping("{productId:\\d+}/update")
+    public String updateProduct(@PathVariable("productId") int productId, UpdateProductPayload payload) {
+        this.productService.updateProduct(productId, payload.name(), payload.details());
+        return "redirect:/catalog/products/list";
     }
 }

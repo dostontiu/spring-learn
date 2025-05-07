@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -27,5 +28,16 @@ public class DefaultProductService implements ProductService {
     @Override
     public Optional<Product> findProduct(int productId) {
         return this.productRepository.findById(productId);
+    }
+
+    @Override
+    public void updateProduct(int productId, String name, String details) {
+        this.productRepository.findById(productId)
+                .ifPresentOrElse(product -> {
+                    product.setName(name);
+                    product.setDetails(details);
+                }, () -> {
+                    throw new NoSuchElementException("Product not found");
+                });
     }
 }

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update product: [[${product.id}]]</title>
+</head>
+<body>
+<a data-th-href="@{/catalog/products/list}">Product list</a>
+<h1>Update product: [[${product.id}]]</h1>
+
+<form data-th-action="@{/catalog/products/{productId}/update(productId=${product.id})}" method="POST">
+    <b>Name: </b>
+    <input type="text" name="name" data-th-value="${product.name}">
+    <br>
+    <br>
+    <b>Details: </b>
+    <textarea name="details" id="" cols="30" rows="3">[[${product.details}]]</textarea>
+    <br>
+    <br>
+    <button type="submit">Update</button>
+</form>
+</body>
+</html>

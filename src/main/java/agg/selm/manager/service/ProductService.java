@@ -11,4 +11,6 @@ public interface ProductService {
     void createProduct(String name, String details);
 
     Optional<Product> findProduct(int productId);
+
+    void updateProduct(int productId, String name, String details);
 }

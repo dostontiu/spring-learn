@@ -21,6 +21,11 @@
         <th>Details:</th>
         <td data-th-text="${product.details}"></td>
     </tr>
+    <tr>
+        <td colspan="2">
+            <a data-th-href="@{/catalog/products/{productId}/edit(productId=${product.id})}">Edit product</a>
+        </td>
+    </tr>
 </table>
 </body>
 </html>
