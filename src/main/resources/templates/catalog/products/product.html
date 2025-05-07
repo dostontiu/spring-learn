@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add product</title>
+</head>
+<body>
+<a data-th-href="@{/catalog/products/list}">Product list</a>
+<h1>Add product</h1>
+
+<table>
+    <tr>
+        <th>ID:</th>
+        <td data-th-text="${product.id}"></td>
+    </tr>
+    <tr>
+        <th>Name:</th>
+        <td data-th-text="${product.name}"></td>
+    </tr>
+    <tr>
+        <th>Details:</th>
+        <td data-th-text="${product.details}"></td>
+    </tr>
+</table>
+</body>
+</html>
