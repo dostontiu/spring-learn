@@ -52,4 +52,10 @@ public class ProductsController {
         this.productService.updateProduct(productId, payload.name(), payload.details());
         return "redirect:/catalog/products/list";
     }
+
+    @PostMapping("{productId:\\d+}/delete")
+    public String deleteProduct(@PathVariable("productId") int productId) {
+        this.productService.deleteProduct(productId);
+        return "redirect:/catalog/products/list";
+    }
 }

@@ -13,4 +13,6 @@ public interface ProductService {
     Optional<Product> findProduct(int productId);
 
     void updateProduct(int productId, String name, String details);
+
+    void deleteProduct(int productId);
 }

@@ -15,6 +15,7 @@
         <th>#</th>
         <th>Name</th>
         <th>Update</th>
+        <th>Delete</th>
     </tr>
     </thead>
     <tbody>
@@ -27,6 +28,11 @@
             </td>
             <td>
                 <a data-th-href="@{/catalog/products/{productId}/edit(productId=${product.id})}">Update</a>
+            </td>
+            <td>
+                <form data-th-action="@{/catalog/products/{productId}/delete(productId=${product.id})}" method="post" onsubmit="return confirm('Do you want to delete?')">
+                    <button type="submit">Delete</button>
+                </form>
             </td>
         </tr>
     </tbody>

@@ -11,4 +11,6 @@ public interface ProductRepository {
     public Product save(Product product);
 
     Optional<Product> findById(int productId);
+
+    void deleteById(int productId);
 }
