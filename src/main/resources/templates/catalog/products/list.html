@@ -14,6 +14,7 @@
     <tr>
         <th>#</th>
         <th>Name</th>
+        <th>Update</th>
     </tr>
     </thead>
     <tbody>
@@ -23,6 +24,9 @@
                 <a data-th-href="@{/catalog/products/{productId}(productId=${product.id})}"
                     data-th-text="${product.name}">
                 </a>
+            </td>
+            <td>
+                <a data-th-href="@{/catalog/products/{productId}/edit(productId=${product.id})}">Update</a>
             </td>
         </tr>
     </tbody>
