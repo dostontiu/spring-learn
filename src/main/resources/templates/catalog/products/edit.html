@@ -8,13 +8,20 @@
 <a data-th-href="@{/catalog/products/list}">Product list</a>
 <h1>Update product: [[${product.id}]]</h1>
 
+<div data-th-if="${errors}">
+    <h3 style="color: red">Validation errors</h3>
+    <ul>
+        <li data-th-each="error: ${errors}" data-th-text="${error}"></li>
+    </ul>
+</div>
+
 <form data-th-action="@{/catalog/products/{productId}/update(productId=${product.id})}" method="POST">
     <b>Name: </b>
-    <input type="text" name="name" data-th-value="${product.name}">
+    <input type="text" name="name" data-th-value="${payload != null ? payload.name : product.name}">
     <br>
     <br>
     <b>Details: </b>
-    <textarea name="details" id="" cols="30" rows="3">[[${product.details}]]</textarea>
+    <textarea name="details" id="" cols="30" rows="3">[[${payload != null ? payload.details : product.details}]]</textarea>
     <br>
     <br>
     <button type="submit">Update</button>

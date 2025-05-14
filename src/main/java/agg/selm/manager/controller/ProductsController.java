@@ -3,9 +3,12 @@ package agg.selm.manager.controller;
 import agg.selm.manager.payload.NewProductPayload;
 import agg.selm.manager.payload.UpdateProductPayload;
 import agg.selm.manager.service.ProductService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,9 +33,17 @@ public class ProductsController {
     }
 
     @PostMapping("store")
-    public String storeProduct(NewProductPayload payload) {
-        this.productService.createProduct(payload.name(), payload.details());
-        return "redirect:/catalog/products/list";
+    public String storeProduct(@Valid NewProductPayload payload, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("payload", payload);
+            model.addAttribute("errors", bindingResult.getAllErrors().stream()
+                    .map(ObjectError::getDefaultMessage)
+                    .toList());
+            return "catalog/products/add";
+        } else {
+            this.productService.createProduct(payload.name(), payload.details());
+            return "redirect:/catalog/products/list";
+        }
     }
 
     @GetMapping("{productId:\\d+}")
@@ -44,11 +55,20 @@ public class ProductsController {
     @GetMapping("{productId:\\d+}/edit")
     public String productEdit(@PathVariable("productId") int productId, Model model) {
         model.addAttribute("product", this.productService.findProduct(productId).orElseThrow());
+        model.addAttribute("payload", null);
         return "/catalog/products/edit";
     }
 
     @PostMapping("{productId:\\d+}/update")
-    public String updateProduct(@PathVariable("productId") int productId, UpdateProductPayload payload) {
+    public String updateProduct(@PathVariable("productId") int productId, @Valid UpdateProductPayload payload, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("product", this.productService.findProduct(productId).orElseThrow());
+            model.addAttribute("payload", payload);
+            model.addAttribute("errors", bindingResult.getAllErrors().stream()
+                    .map(ObjectError::getDefaultMessage)
+                    .toList());
+            return "/catalog/products/edit";
+        }
         this.productService.updateProduct(productId, payload.name(), payload.details());
         return "redirect:/catalog/products/list";
     }
